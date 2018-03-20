@@ -1,3 +1,4 @@
+
 #include <iostream>
 using namespace std;
 template <class K, int M=3>
@@ -62,7 +63,7 @@ public:
 					temp->_size++;
 				}
 				temp->_pSub[temp->_size] = pCur->_pSub[pCur->_size];
-			
+
 				if (temp->_pSub[temp->_size])
 					temp->_pSub[temp->_size]->_pParent = temp;
 				pCur->_size -= (temp->_size + 1);//处理size
@@ -110,6 +111,10 @@ public:
 		return make_pair(pParent, -1);//没找到返回-1
 	}
 
+	void InOrder()
+	{
+		_InOrder(_pRoot);
+	}
 private:
 	void _InsertKey(PNode pCur, const K& key, PNode pSub)
 	{
@@ -121,11 +126,24 @@ private:
 			pCur->_pSub[end + 2] = pCur->_pSub[end + 1];
 			end--;
 		}
+
 		pCur->_key[end + 1] = key;
 		pCur->_pSub[end + 2] = pSub;
 		if (pSub)
 			pSub->_pParent = pCur;
 		pCur->_size += 1;
+	}
+
+	void _InOrder(PNode pRoot)
+	{
+		if (pRoot == NULL)
+			return;
+		for (size_t i = 0; i < pRoot->_size; i++)
+		{
+			_InOrder(pRoot->_pSub[i]);
+			cout << pRoot->_key[i] << " ";
+		}
+		_InOrder(pRoot->_pSub[pRoot->_size]);
 	}
 private:
 	PNode _pRoot;
@@ -137,5 +155,9 @@ void test()
 	BTree<int> b;
 	size_t size = sizeof(arr) / sizeof(arr[0]);
 	for (size_t i = 0; i < 7; i++)
+	{
 		b.Insert(arr[i]);
+		b.InOrder();
+		cout << endl;
+	}
 }
