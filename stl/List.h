@@ -2,6 +2,7 @@
 #include "construct.h"
 #include "dafault_alloc.h"
 #include "Type_Traits.h"
+#include "Iterator_Traits.h"
 #include <string>
 template <class T>
 struct Node
@@ -17,6 +18,10 @@ struct Iterator
 	typedef Node<T> ListNode;
 	typedef Iterator<T, Ref, Ptr> Self;
 	typedef T ValueType;
+	typedef Ref Reference;
+	typedef Ptr Pointer;
+	typedef int DifferenceType;
+	typedef BidirectionalIteratorTag IteratorCategory;
 	Iterator()
 		: _pNode(NULL)
 	{}
@@ -75,7 +80,17 @@ class List
 	typedef SimpleAlloc<ListNode, Alloc> ListAlloc;
 public:
 	typedef Iterator<T, T&, T*> Iterator;
+	typedef ReverseIterator<Iterator> ReverseIterator;
 public:
+	ReverseIterator RBegin()
+	{
+		return ReverseIterator(End());
+	}
+	ReverseIterator REnd()
+	{
+		return ReverseIterator(Begin());
+	}
+
 	List()
 	{
 		_pHead = CreateNode();
@@ -97,6 +112,7 @@ public:
 		ListNode* pospre = (pos._pNode)->_pPre;
 		pospre->_pNext = posnext;
 		posnext->_pPre = pospre;
+
 		DestoryNode(pos._pNode);
 		return posnext;
 	}
@@ -140,6 +156,7 @@ public:
 	{
 		Clear();
 		DestoryNode(_pHead);
+		_pHead = NULL;
 	}
 protected:
 	ListNode* GetNode()
@@ -174,13 +191,28 @@ void test()
 	li.PushFront(000);
 	li.PushFront(-111);
 	li.PushFront(-222);
-	li.PopBack();
-	li.PopBack();
-	li.PopBack();
-	li.PopFront();
-	li.PopFront();
-	li.PopFront();
-	List<string> ls;
-	ls.PushBack("111");
-	ls.PopBack();
+	List<int>::Iterator it = li.Begin();
+	while (it != li.End())
+	{
+		cout << *it << " ";
+		++it;
+	}
+	cout << endl;
+	List<int>::ReverseIterator rIt = li.RBegin();
+	while (rIt != li.REnd())
+	{
+		cout << *rIt << " ";
+		++rIt;
+	}
+	cout << endl;
+	//cout << Difference(li.Begin(), li.End()) << endl;
+	//li.PopBack();
+	//li.PopBack();
+	//li.PopBack();
+	//li.PopFront();
+	//li.PopFront();
+	//li.PopFront();
+	//List<string> ls;
+	//ls.PushBack("111");
+	//ls.PopBack();
 }

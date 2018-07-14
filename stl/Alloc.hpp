@@ -16,12 +16,12 @@ public:
 		return result;
 	}
 
-	static void DeAllocate(void* p/*, size_t size*/)
+	static void DeAllocate(void* p, size_t size)
 	{
 		free(p);
 	}
 
-	static void* ReAllocate(void* p/*, size_t oldSize*/, size_t newSize)
+	static void* ReAllocate(void* p, size_t oldSize, size_t newSize)
 	{
 		void* result = realloc(p, newSize);
 		if (NULL == result)
@@ -77,18 +77,18 @@ void Handle()
 }
 
 typedef MallocAllocTemplate<0> MallocAlloc;
-void test()
-{
-	int* p = (int*)MallocAlloc::Allocate(sizeof(int)* 5);
-	for (int i = 0; i < 5; i++)
-		p[i] = i;
-	int* tmp = (int*)MallocAlloc::ReAllocate(p, sizeof(int)* 10);
-	p = tmp;
-	for (int i = 0; i < 10; i++)
-		p[i] = i;
-	MallocAlloc::DeAllocate(p);
-
-	MallocAlloc::setMallocHandle(Handle);
-	p = (int*)MallocAlloc::Allocate(191234456789);
-	MallocAlloc::DeAllocate(p);
-}
+//void test()
+//{
+//	int* p = (int*)MallocAlloc::Allocate(sizeof(int)* 5);
+//	for (int i = 0; i < 5; i++)
+//		p[i] = i;
+//	int* tmp = (int*)MallocAlloc::ReAllocate(p, sizeof(int)* 10);
+//	p = tmp;
+//	for (int i = 0; i < 10; i++)
+//		p[i] = i;
+//	MallocAlloc::DeAllocate(p);
+//
+//	MallocAlloc::setMallocHandle(Handle);
+//	p = (int*)MallocAlloc::Allocate(191234456789);
+//	MallocAlloc::DeAllocate(p);
+//}

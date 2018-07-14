@@ -11,7 +11,8 @@ void Destory(T* p)
 template <class Iterator>
 void Destory(Iterator first, Iterator end)
 {
-	_Destory(first, end, TypeTraits<Iterator::ValueType>::PODType);
+	// TypeTraits<Iterator::ValuType>::PODType;
+	_Destory(first, end, TypeTraits<IteratorTraits<Iterator>::ValueType>::PODType());
 }
 template <class Iterator>
 void _Destory(Iterator first, Iterator end, Falsetype)
