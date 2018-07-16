@@ -7,16 +7,15 @@
 template <class T, class Alloc = _Alloc>
 class Vector
 {
+public:
 	typedef T* Iterator;
+	typedef ReverseIterator<Iterator> ReverseIterator;
 	typedef T ValueType;
 	typedef T* Poniter;
 	typedef T& Reference;
 	typedef int DifferenceType;
 	typedef RandomAccessIteratorTag IteratorCategory;
 	typedef SimpleAlloc<T, Alloc> VectorAlloc;
-public:
-	typedef T* Iterator;
-	typedef ReverseIterator<Iterator> ReverseIterator;
 
 	Vector()
 		: _start(NULL)
@@ -35,15 +34,15 @@ public:
 	void PushBack(const T& data)
 	{
 		_CheckCapacity();
+		Construct(_finish, data); //构造对象
 		*_finish = data;
-		// Construct(_finifsh, data); //构造对象
 		_finish++;
 	}
 
 	void PopBack()
 	{
 		_finish--;
-		//Destory(_finish);
+		Destory(_finish);
 	}
 
 	Iterator Begin()
@@ -146,9 +145,44 @@ private:
 };
 
 
-
-
 void test()
 {
+	//Vector<int> li;
+	//li.PushBack(111);
+	//li.PushBack(222);
+	//li.PushBack(333);
+	//Vector<int>::Iterator it = li.Begin();
+	//while (it != li.End())
+	//{
+	//	cout << *it << " ";
+	//	++it;
+	//}
+	//cout << endl;
+	//Vector<int>::ReverseIterator rIt = li.RBegin();
+	//while (rIt != li.REnd())
+	//{
+	//	cout << *rIt << " ";
+	//	++rIt;
+	//}
+	//cout << endl;
 
+	Vector<string> li;
+	li.PushBack("111");
+	li.PushBack("222");
+	li.PushBack("333");
+	Vector<string>::Iterator it = li.Begin();
+	while (it != li.End())
+	{
+		cout << *it << " ";
+		++it;
+	}
+	cout << endl;
+	Vector<string>::ReverseIterator rIt = li.RBegin();
+	while (rIt != li.REnd())
+	{
+		cout << *rIt << " ";
+		++rIt;
+	}
+	cout << endl;
+	li.PopBack();
 }
