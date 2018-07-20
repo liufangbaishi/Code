@@ -1,4 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
+
 #include "CommentConvert.h"
 void DoNulState(FILE* pfIn, FILE* pfOut, enum STATE* s)
 {
@@ -11,11 +12,11 @@ void DoNulState(FILE* pfIn, FILE* pfOut, enum STATE* s)
 				switch (second)
 				{
 				case '/':
-					*s = CPP_STATE;//Óöµ½//×ª»»ÖÁC++×´Ì¬
+					*s = CPP_STATE;//é‡åˆ°//è½¬æ¢è‡³C++çŠ¶æ€
 					fputc(first, pfOut);
 					fputc(second, pfOut);
 					break;
-				case '*'://½«/*×ª»»³É//£¬×ª»»ÖÁC×´Ì¬
+				case '*'://å°†/*è½¬æ¢æˆ//ï¼Œè½¬æ¢è‡³CçŠ¶æ€
 					*s = C_STATE;
 					fputc('/', pfOut);
 					fputc('/', pfOut);
@@ -27,7 +28,7 @@ void DoNulState(FILE* pfIn, FILE* pfOut, enum STATE* s)
 	}
 		break;
 	case EOF:
-		*s = END_STATE;//ÎÄ¼ş½áÊø£¬×ª»»ÖÁ½áÊø×´Ì¬
+		*s = END_STATE;//æ–‡ä»¶ç»“æŸï¼Œè½¬æ¢è‡³ç»“æŸçŠ¶æ€
 		break;
 	default:
 		fputc(first, pfOut);
@@ -44,7 +45,7 @@ void DoCState(FILE* pfIn, FILE* pfOut, enum STATE* s)
 				int second = fgetc(pfIn);
 				switch (second)
 				{
-				case '/'://Óöµ½*/×ª»»ÖÁÎŞ×´Ì¬£¬½«*/È¥³ı»ò»»ĞĞ
+				case '/'://é‡åˆ°*/è½¬æ¢è‡³æ— çŠ¶æ€ï¼Œå°†*/å»é™¤æˆ–æ¢è¡Œ
 				{
 							*s = NUL_STATE;
 							int third = fgetc(pfIn);
@@ -70,12 +71,12 @@ void DoCState(FILE* pfIn, FILE* pfOut, enum STATE* s)
 				}
 	}
 		break;
-	case '\n'://¶àĞĞ×¢ÊÍµÄ´¦Àí
+	case '\n'://å¤šè¡Œæ³¨é‡Šçš„å¤„ç†
 		fputc(first, pfOut);
 		fputc('/', pfOut);
 		fputc('/', pfOut);
 		break;
-	case EOF://ÎÄ¼ş½áÊø£¬×ª»»ÖÁÎŞ×´Ì¬
+	case EOF://æ–‡ä»¶ç»“æŸï¼Œè½¬æ¢è‡³æ— çŠ¶æ€
 		*s = END_STATE;
 		break;
 	default:
@@ -89,7 +90,7 @@ void DoCppState(FILE* pfIn, FILE* pfOut, enum STATE* s)
 	switch (first)
 	{
 	case '\n':
-		*s = NUL_STATE;//C++×´Ì¬×¢ÊÍÒ»ĞĞ½áÊø£¬×ª»»ÖÁÎŞ×´Ì¬
+		*s = NUL_STATE;//C++çŠ¶æ€æ³¨é‡Šä¸€è¡Œç»“æŸï¼Œè½¬æ¢è‡³æ— çŠ¶æ€
 		fputc(first, pfOut);
 		break;
 	case EOF:
