@@ -1,5 +1,4 @@
 #define _CRT_SECURE_NO_WARNINGS
-
 #include "CommentConvert.h"
 void DoNulState(FILE* pfIn, FILE* pfOut, enum STATE* s)
 {
