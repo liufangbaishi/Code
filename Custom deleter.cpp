@@ -1,4 +1,6 @@
+#include <iostream>
 #include <stdio.h>
+using namespace std;
 //使用函数指针，模板函数   定制删除器
 template <class T>
 void Delete(T*& p)
