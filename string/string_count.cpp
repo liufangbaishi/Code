@@ -56,11 +56,11 @@ private:
 int main()
 {
 	String s1("hello");
-	//String s2(s1);
-	//String s3;
-	//s3 = s2;
-	//s2 = s3;
-	//s3 = s1;
-	//s1 = s3;
+	String s2(s1);
+	String s3;
+	s3 = s2;
+	s2 = s3;
+	s3 = s1;
+	s1 = s3;
 	return 0;
 }

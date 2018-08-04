@@ -50,7 +50,7 @@ private:
 	{
 		if (0 == --GetReference() && _pStr)
 		{
-			_pStr = _pStr - 4;
+			_pStr = _pStr - 4; //引用计数的4个字节
 			delete[] _pStr;
 			_pStr = NULL;
 		}
